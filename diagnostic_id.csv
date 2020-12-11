@@ -1,0 +1,97 @@
+id,diag
+0,proliferative diabetic retinopathy
+1,retina fold
+2,depigmentation of the retinal pigment epithelium
+3,macular epiretinal membrane
+4,suspected macular epimacular membrane
+5,intraretinal microvascular abnormality
+6,optic nerve atrophy
+7,retinal pigmentation
+8,anterior segment image
+9,suspected diabetic retinopathy
+10,central retinal vein occlusion
+11,macular pigmentation disorder
+12,optic discitis
+13,laser spot
+14,suspected abnormal color of  optic disc
+15,congenital choroidal coloboma
+16,myopia retinopathy
+17,refractive media opacity
+18,no fundus image
+19,diffuse retinal atrophy
+20,spotted membranous change
+21,"hypertensive retinopathy,diabetic retinopathy"
+22,vitreous opacity
+23,suspected moderate non proliferative retinopathy
+24,idiopathic choroidal neovascularization
+25,macular coloboma
+26,retinochoroidal coloboma
+27,cataract
+28,branch retinal vein occlusion
+29,pigment epithelium proliferation
+30,vitreous degeneration
+31,chorioretinal atrophy
+32,vessel tortuosity
+33,diabetic retinopathy
+34,optic disk epiretinal membrane
+35,lens dust
+36,retinal pigment epithelial hypertrophy
+37,pigmentation disorder
+38,peripapillary atrophy
+39,abnormal pigment
+40,atrophic change
+41,hypertensive retinopathy
+42,maculopathy
+43,old branch retinal vein occlusion
+44,fundus laser photocoagulation spots
+45,image offset
+46,dry age-related macular degeneration
+47,diffuse chorioretinal atrophy
+48,morning glory syndrome
+49,myelinated nerve fibers
+50,epiretinal membrane
+51,suspicious diabetic retinopathy
+52,retinal pigment epithelium atrophy
+53,macular hole
+54,branch retinal artery occlusion
+55,old chorioretinopathy
+56,suspected microvascular anomalies
+57,wet age-related macular degeneration
+58,normal fundus
+59,old choroiditis
+60,epiretinal membrane over the macula
+61,optic disc edema
+62,glaucoma
+63,choroidal nevus
+64,central serous chorioretinopathy
+65,oval yellow-white atrophy
+66,low image quality
+67,suspected retinal vascular sheathing
+68,post retinal laser surgery
+69,"low image quality,maculopathy"
+70,suspected cataract
+71,white vessel
+72,glial remnants anterior to the optic disc
+73,wedge white line change
+74,mild nonproliferative retinopathy
+75,drusen
+76,old central retinal vein occlusion
+77,retinitis pigmentosa
+78,myopic maculopathy
+79,optic disk photographically invisible
+80,arteriosclerosis
+81,retinal detachment
+82,atrophy
+83,age-related macular degeneration
+84,suspected glaucoma
+85,pathological myopia
+86,chorioretinal atrophy with pigmentation proliferation
+87,silicone oil eye
+88,severe proliferative diabetic retinopathy
+89,severe nonproliferative retinopathy
+90,moderate non proliferative retinopathy
+91,post laser photocoagulation
+92,retinal vascular sheathing
+93,tessellated fundus
+94,intraretinal hemorrhage
+95,central retinal artery occlusion

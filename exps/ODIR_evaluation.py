@@ -68,15 +68,7 @@ def ODIR_Metrics(gt_data, pr_data):
     return kappa, f1, auc, final_score
 
 
-if __name__ == '__main__':
-    argc = len(sys.argv)  
-    if argc != 3:
-        print(sys.argv[0], "\n Usage: \n First String: ground_truth_filepath, \n Second String: predicted_result_filepath.")
-        sys.exit(-1)  
-    
-    GT_filepath = sys.argv[1]
-    PR_filepath = sys.argv[2]
-
+def ODIR_Evaluation(GT_filepath, PR_filepath):
     gt_data = importGT(GT_filepath)
     pr_data, wrong_col_order, wrong_row_order, missing_results = importPR(gt_data,PR_filepath)
 

@@ -11,6 +11,8 @@ XLSXFILE = "/work/ocular-dataset/ODIR-5K/data.xlsx"
 
 TRAIN_GT = "/work/exps/train_gt.csv"
 VAL_GT = "/work/exps/val_gt.csv"
+EYE_TRAIN_GT = "/work/exps/eye_labels_train.csv"
+EYE_VAL_GT = "/work/exps/eye_labels_val.csv"
 
 VAL_GT_XLSX = "/work/exps/val_gt.xlsx"
 
@@ -61,7 +63,20 @@ class ODIR_Dataset:
                 self.X_val_id[i_test] = row['ID']
 
                 i_test += 1
+        
+        eye_train = pd.read_csv(EYE_TRAIN_GT)
+        self.X_eye_train = eye_train['ID'].to_numpy()
+
+        self.y_eye_train = np.zeros([len(self.X_eye_train), 8], dtype=np.int)
+        for index, row in eye_train.iterrows():
+            for (i,j) in (('N',0),('D',1),('G',2),('C',3),('A',4),('H',5),('M',6),('O',7)):
+                if row[i] == 1:
+                    self.y_eye_train[index][j] = 1
+
+        eye_val = pd.read_csv(EYE_VAL_GT)
+        self.X_eye_val = eye_val['ID'].to_numpy()
     
+
     def evaluate(self, y_val_res, resultfile):
         if resultfile in (TRAIN_GT, VAL_GT, VAL_GT_XLSX):
             raise Exception("resultfile with same names as gt files")

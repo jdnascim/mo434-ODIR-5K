@@ -5,17 +5,18 @@ import numpy as np
 # create a CLAHE with L channel(Contrast Limited Adaptive Histogram Equalization).
 def pre_proc_CEH2(img): 
     img_lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
-	lab_planes = cv2.split(img_lab)
-	clahe = cv2.createCLAHE(clipLimit=2.0,tileGridSize=(8,8))
-	lab_planes[0] = clahe.apply(lab_planes[0])
-	lab = cv2.merge(lab_planes)
-	cl1 = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
+    lab_planes = cv2.split(img_lab)
+    clahe = cv2.createCLAHE(clipLimit=2.0,tileGridSize=(8,8))
+    lab_planes[0] = clahe.apply(lab_planes[0])
+    lab = cv2.merge(lab_planes)
+    cl1 = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
     return cl1
 
 # create a CLAHE (Contrast Limited Adaptive Histogram Equalization).	
 def pre_proc_CEH(img):
     img_bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)    
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize	)
+    clahe = cv2.createCLAHE(clipLimit=2.0,tileGridSize=(8,8))
+    #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize	)
     cl1 = clahe.apply(img_bw)
     return cl1
 
@@ -50,7 +51,7 @@ def cut_and_resize_to_original_img(img):
 def CEH_cut_pipeline(img):
     img_uint = img.astype(np.uint8)
     img1 = cut_and_resize_to_original_img(img_uint)
-    img2 = pre_proc_CEH(img1)
+    img2 = pre_proc_CEH2(img1)
     return img2
 
 # Read image per image

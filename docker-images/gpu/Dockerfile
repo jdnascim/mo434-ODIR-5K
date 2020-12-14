@@ -5,6 +5,7 @@ USER root
 RUN apt-get update
 RUN apt-get install -y apt-utils
 RUN apt-get install -y curl unzip vim
+RUN apt-get install -y ffmpeg libsm6 libxext6
 
 USER $NB_UID
 

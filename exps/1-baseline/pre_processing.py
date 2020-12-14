@@ -3,11 +3,14 @@ import os
 import numpy as np
 
 # create a CLAHE (Contrast Limited Adaptive Histogram Equalization).  
-def pre_proc_CEH(img):
-    img_bw = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)    
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
-    cl1 = clahe.apply(img_bw)
-    return cl1
+def pre_proc_CEH(bgr):
+    lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB)
+    lab_planes = cv2.split(lab)
+    clahe = cv2.createCLAHE(clipLimit=2.0,tileGridSize=(8,8))
+    lab_planes[0] = clahe.apply(lab_planes[0])
+    lab = cv2.merge(lab_planes)
+    bgr_final = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
+    return bgr_final
 
 # create Equalization Histogram
 def pre_proc_EH(img):
@@ -19,14 +22,27 @@ def pre_proc_EH(img):
 # reduce the black background
 def cut_img(img):
     grayscale = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresholded = cv2.threshold(grayscale, 0, 255,cv2.THRESH_OTSU)
+    _ , thresholded = cv2.threshold(grayscale, 0, 255,cv2.THRESH_OTSU)
     bbox = cv2.boundingRect(thresholded)
     x, y, w, h = bbox
     img_cut = img[y:y+h, x:x+w]    
     return img_cut
 
+# reduce the black background
+def cut_and_resize_to_original_img(img):
+    shp = img.shape[0:2]
+    grayscale = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _ , thresholded = cv2.threshold(grayscale, 0, 255,cv2.THRESH_OTSU)
+    bbox = cv2.boundingRect(thresholded)
+    x, y, w, h = bbox
+    img_cut = img[y:y+h, x:x+w]    
+    bgr_final = cv2.cvtColor(img_cut, cv2.COLOR_LAB2BGR)
+    img_cut_resized = cv2.resize(bgr_final,shp,interpolation=cv2.INTER_AREA)
+    return img_cut_resized
+
 def CEH_cut_pipeline(img):
-    img1 = cut_img(img)
+    img_uint = img.astype(np.uint8)
+    img1 = cut_and_resize_to_original_img(img_uint)
     img2 = pre_proc_CEH(img1)
     return img2
 
@@ -45,4 +61,4 @@ def load_images_from_folder(path_folder):
             cv2.imwrite(path, img_proc)
 
 # CHANGE THE DIRECTORY OF IMAGES
-load_images_from_folder("test2")
+#load_images_from_folder("test2")

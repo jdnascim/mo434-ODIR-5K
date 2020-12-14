@@ -11,12 +11,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
+import pre_processing
+
 BATCH_SIZE = 16
 EPOCHS = 20
 SEED = 13
 LR = 1e-4
 
-EXP_NAME = "ft_InceptionResNetV2_avg_pool_lr-4"
+EXP_NAME = "ft_InceptionResNetV2_avg_pool_lr-4_ceh_cut"
+
+PRE_PROC_FUNC = pre_processing.CEH_cut_pipeline
 
 tf.random.set_seed(SEED)
 np.random.seed(SEED)
@@ -36,7 +40,7 @@ model = Model(base_model.input, out)
 model.compile(optimizer=Adam(lr=LR), loss='categorical_crossentropy', 
 metrics=['AUC'])
 
-datagen = ImageDataGenerator(validation_split=0.2)
+datagen = ImageDataGenerator(validation_split=0.2, preprocessing_function=PRE_PROC_FUNC)
 
 train_gen = datagen.flow_from_directory("/work/ocular-dataset/ODIR-5K-Flow/train/", 
 target_size=(244,244), batch_size=BATCH_SIZE, subset='training', seed=SEED)

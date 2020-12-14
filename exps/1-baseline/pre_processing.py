@@ -4,7 +4,7 @@ import numpy as np
 
 # create a CLAHE with L channel(Contrast Limited Adaptive Histogram Equalization).
 def pre_proc_CEH2(img): 
-	img_lab = cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB)
+    img_lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
 	lab_planes = cv2.split(img_lab)
 	clahe = cv2.createCLAHE(clipLimit=2.0,tileGridSize=(8,8))
 	lab_planes[0] = clahe.apply(lab_planes[0])

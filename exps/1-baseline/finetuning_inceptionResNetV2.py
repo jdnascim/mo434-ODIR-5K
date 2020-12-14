@@ -2,7 +2,7 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Flatten, Dense, Dropout
 from tensorflow.keras.models import Model
-from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.applications import InceptionResNetV2
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.callbacks import ModelCheckpoint
@@ -16,24 +16,24 @@ EPOCHS = 20
 SEED = 13
 LR = 1e-4
 
-EXP_NAME = "ft_vgg16_fc2_lr-4"
+EXP_NAME = "ft_InceptionResNetV2_avg_pool_lr-4"
 
 tf.random.set_seed(SEED)
 np.random.seed(SEED)
 random.seed(SEED)
 
-vgg_conv = VGG16(weights='imagenet')
+base_model = InceptionResNetV2(weights='imagenet')
 
-for layer in vgg_conv.layers: 
+for layer in base_model.layers: 
     layer.trainable = False
 
-out = vgg_conv.get_layer('fc2').output
+out = base_model.get_layer('avg_pool').output
 out = Dense(8, activation='softmax', name='predictions')(out)
 
-model = Model(vgg_conv.input, out)
+model = Model(base_model.input, out)
 
 # We compile the model
-model.compile(optimizer=Adam(lr=0.001), loss='categorical_crossentropy', 
+model.compile(optimizer=Adam(lr=LR), loss='categorical_crossentropy', 
 metrics=['AUC'])
 
 datagen = ImageDataGenerator(validation_split=0.2)
@@ -69,7 +69,6 @@ plt.plot(epochs, loss_values, '-o', label='Training Loss')
 plt.plot(epochs, loss_val_values, '-o', label='Validation Loss')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
-plt.title("Loss per Epochs")
 plt.legend()
 
 textstr = "best val_auc: " + str(round(max(history.history["val_auc"]),4))

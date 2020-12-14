@@ -2,12 +2,13 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Flatten, Dense, Dropout
 from tensorflow.keras.models import Model
-from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.applications import EfficientNetB3
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.callbacks import ModelCheckpoint
-import tensorflow as tf
+from sklearn.metrics import cohen_kappa_score, f1_score
 import matplotlib.pyplot as plt
+import tensorflow as tf
 import numpy as np
 import random
 
@@ -16,21 +17,21 @@ EPOCHS = 20
 SEED = 13
 LR = 1e-4
 
-EXP_NAME = "ft_vgg16_fc2_lr-4"
+EXP_NAME = "ft_efficientnetb3_top_dropout_lr-4"
 
 tf.random.set_seed(SEED)
 np.random.seed(SEED)
 random.seed(SEED)
 
-vgg_conv = VGG16(weights='imagenet')
+base_model = EfficientNetB3(weights='imagenet')
 
-for layer in vgg_conv.layers: 
+for layer in base_model.layers: 
     layer.trainable = False
 
-out = vgg_conv.get_layer('fc2').output
+out = base_model.get_layer('top_dropout').output
 out = Dense(8, activation='softmax', name='predictions')(out)
 
-model = Model(vgg_conv.input, out)
+model = Model(base_model.input, out)
 
 # We compile the model
 model.compile(optimizer=Adam(lr=0.001), loss='categorical_crossentropy', 

@@ -25,6 +25,10 @@ def cut_img(img):
     img_cut = img[y:y+h, x:x+w]    
     return img_cut
 
+def CEH_cut_pipeline(img):
+    img1 = cut_img(img)
+    img2 = pre_proc_CEH(img1)
+    return img2
 
 # Read image per image
 def load_images_from_folder(path_folder): 
